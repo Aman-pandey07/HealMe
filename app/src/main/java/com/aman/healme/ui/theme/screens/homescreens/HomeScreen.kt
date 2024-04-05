@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,6 +24,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.DateRange
@@ -165,20 +167,23 @@ fun HomeScreen(){
               Column (modifier = Modifier
                      .fillMaxSize()
                      .padding()
+                     .verticalScroll(rememberScrollState())
                      .background(Color.White),
                      verticalArrangement = Arrangement.Top,
                      horizontalAlignment = Alignment.CenterHorizontally
               ){
+
                      Card(
                             modifier = Modifier
                                    .fillMaxWidth()
                                    .padding(value)
                                    .background(Color.White),
                      ) {
-                            SearchBar(value = "Search a Doctor or a Health issue", onValueChange = {})
-                            SimpleCarousel(imageList) { index ->
-                                   // Handle image click here based on the index
-                            }
+//                            SearchBar(value = "Search a Doctor or a Health issue", onValueChange = {})
+
+                     }
+                     SimpleCarousel(imageList) { index ->
+                            // Handle image click here based on the index
                      }
                      Row(
                             modifier = Modifier
@@ -208,7 +213,6 @@ fun HomeScreen(){
                                    )
                             }
                      }
-                     Column {
                             Row(
                                    modifier = Modifier
                                           .fillMaxWidth()
@@ -235,8 +239,17 @@ fun HomeScreen(){
                             SquareGrid()
                             SquareGrid()
                             SquareGrid()
+                     SquareGrid()
+                     SquareGrid()
+                     SquareGrid()
+                     SquareGrid()
+                     SquareGrid()
+                     SquareGrid()
+                     SquareGrid()
+                     SquareGrid()
 
-                     }
+
+
               }
        }
 }
@@ -259,7 +272,7 @@ fun SearchBar(
        onValueChange: (String) -> Unit,
        modifier: Modifier = Modifier
               .fillMaxWidth()
-              .padding(horizontal = 16.dp),
+              .padding(horizontal = 25.dp),
 ) {
        OutlinedTextField(
               value = value,
@@ -273,7 +286,9 @@ fun SearchBar(
 fun SimpleCarousel(images : List<Int>, onClick:(Int) -> Unit ){
        LazyRow(modifier = Modifier
               .fillMaxWidth()
-              .height(150.dp)) {
+              .height(150.dp)
+              .offset(y = 0.dp)
+       ) {
               itemsIndexed(images){index, imageId ->
                      CarouselItem(imageId, onClick = { onClick(index) })
                      Spacer(modifier = Modifier.width(8.dp))
@@ -340,17 +355,4 @@ fun SquareCard(
               }
        }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

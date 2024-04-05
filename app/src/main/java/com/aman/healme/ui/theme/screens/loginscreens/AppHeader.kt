@@ -2,6 +2,7 @@ package com.aman.healme.ui.theme.screens.loginscreens
 
 
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -13,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import com.aman.healme.ui.theme.screens.homescreens.SearchBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,25 +24,26 @@ fun AppHeader(
     navigateUp: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
-        title = {
-            Text(
-                appName,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
-
-        navigationIcon = {
-
-            IconButton(onClick = navigateUp) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Go Back"
+            title = {
+                Text(
+                    appName,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
                 )
+            },
+
+            navigationIcon = {
+
+                IconButton(onClick = navigateUp) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Go Back"
+                    )
+                }
             }
-        }
 
     )
+
 }
 
 
