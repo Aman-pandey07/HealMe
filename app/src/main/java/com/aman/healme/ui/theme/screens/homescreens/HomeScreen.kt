@@ -22,6 +22,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.* // Or import them individually
+
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -39,6 +41,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -62,8 +65,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aman.healme.R
 import com.aman.healme.ui.theme.screens.loginscreens.AppHeader
-
-
+import kotlin.random.Random
 
 
 data class BottomNavigationItem(
@@ -80,6 +82,8 @@ val imageList = listOf(R.drawable.image1, R.drawable.image1, R.drawable.image1)
 
 data class Doctor(val name:String)
 
+
+
 val dummyDocData = listOf(
        Doctor("Smith"),
        Doctor("Johnson"),
@@ -91,6 +95,15 @@ val dummyDocData = listOf(
        Doctor("Jones"),
 )
 
+data class DoctorList(val name: String, val category: String, val imageId: Int)
+
+val dummyDoctors = listOf(
+       DoctorList("Dr. Smith", "Cardiology", R.drawable.image1), // Replace with your image resource
+       DoctorList("Dr. Jones", "Neurology", R.drawable.image1), // Replace with your image resource
+       DoctorList("Dr. Patel", "Dermatology", R.drawable.image1), // Replace with your image resource
+)
+
+
 
 
 
@@ -98,33 +111,33 @@ val dummyDocData = listOf(
 
 
 @Composable
-fun HomeScreen(){
+fun HomeScreen() {
 
        val items = listOf(
               BottomNavigationItem(
                      title = "Home",
-                     selectedIcon = Icons.Default.Home ,
+                     selectedIcon = Icons.Default.Home,
                      unselectedIcon = Icons.Outlined.Home,
                      hasNews = false,
 
                      ),
               BottomNavigationItem(
                      title = "Appointment",
-                     selectedIcon = Icons.Default.DateRange ,
+                     selectedIcon = Icons.Default.DateRange,
                      unselectedIcon = Icons.Outlined.DateRange,
                      hasNews = false,
 
                      ),
               BottomNavigationItem(
                      title = "Upload",
-                     selectedIcon = Icons.Default.List ,
+                     selectedIcon = Icons.Default.List,
                      unselectedIcon = Icons.Outlined.List,
                      hasNews = false,
 
                      ),
               BottomNavigationItem(
                      title = "Account",
-                     selectedIcon = Icons.Default.AccountCircle ,
+                     selectedIcon = Icons.Default.AccountCircle,
                      unselectedIcon = Icons.Outlined.AccountCircle,
                      hasNews = false,
 
@@ -138,40 +151,51 @@ fun HomeScreen(){
        Scaffold(
               topBar = {
                      AppHeader("HEAL-ME") {
-                           // navController.navigateUp() // Example usage with NavController
+                            // navController.navigateUp() // Example usage with NavController
                      }
               },
               bottomBar = {
                      NavigationBar {
-                            items.forEachIndexed{index, item ->
+                            items.forEachIndexed { index, item ->
                                    NavigationBarItem(
                                           selected = selectedItemIndex == index,
                                           onClick = {
-                                                    selectedItemIndex= index
+                                                 selectedItemIndex = index
                                                  // TODO Navigate //navController.navigate(item.title)
-                                                    },
-                                          icon = {  if (selectedItemIndex == index) {
-                                                 Icon(item.selectedIcon, contentDescription = item.title) // Use selected icon
-                                          } else {
-                                                 Icon(item.unselectedIcon, contentDescription = item.title) // Use unselected icon
-                                          } })
+                                          },
+                                          icon = {
+                                                 if (selectedItemIndex == index) {
+                                                        Icon(
+                                                               item.selectedIcon,
+                                                               contentDescription = item.title
+                                                        ) // Use selected icon
+                                                 } else {
+                                                        Icon(
+                                                               item.unselectedIcon,
+                                                               contentDescription = item.title
+                                                        ) // Use unselected icon
+                                                 }
+                                          })
                             }
                      }
               }
 
-       ) {value ->
+       ) { value ->
               // TODO content
 
-              val scrollState = rememberScrollState()
 
-              Column (modifier = Modifier
-                     .fillMaxSize()
-                     .padding()
-                     .verticalScroll(rememberScrollState())
-                     .background(Color.White),
+              Column(
+                     modifier = Modifier
+                            .fillMaxSize()
+                            .padding()
+                            .verticalScroll(rememberScrollState())
+                            .background(Color.White),
                      verticalArrangement = Arrangement.Top,
                      horizontalAlignment = Alignment.CenterHorizontally
-              ){
+              ) {
+
+
+
 
                      Card(
                             modifier = Modifier
@@ -185,34 +209,47 @@ fun HomeScreen(){
                      SimpleCarousel(imageList) { index ->
                             // Handle image click here based on the index
                      }
-                     Row(
-                            modifier = Modifier
-                                   .fillMaxWidth()
-                                   .padding(horizontal = 16.dp, vertical = 8.dp)
-                                   .height(IntrinsicSize.Min), // Ensure thin row height
-                            horizontalArrangement = Arrangement.SpaceBetween
-                     ) {
-                            Text(
-                                   text = "Let’s find your doctor",
-                                   style = MaterialTheme.typography.bodyMedium, // Material 3 typography
-                                   modifier = Modifier.weight(1f)
-                            )
-                            TextButton(
-                                   onClick = { },
-                                   colors = ButtonDefaults.textButtonColors(
-                                          contentColor = MaterialTheme.colorScheme.onSurface // Consistent text color
-                                   ),
-                                   contentPadding = PaddingValues(0.dp), // Remove default padding
-                                   elevation = null, // Remove elevation for a truly flat button
-                                   // Use Material 3 OutlinedButton for a more distinct button style:
-                                   // style = OutlinedButtonDefaults.outlinedButtonStyle()
+
+                     Column {
+
+
+                            Row(
+                                   modifier = Modifier
+                                          .fillMaxWidth()
+                                          .padding(horizontal = 15.dp, vertical = 8.dp)
+                                          .height(IntrinsicSize.Min)
+                                          .offset(y = (-40).dp), // Ensure thin row height
+                                   horizontalArrangement = Arrangement.SpaceBetween,
+                                   verticalAlignment = Alignment.Top
                             ) {
                                    Text(
-                                          text = "See all",
-                                          style = MaterialTheme.typography.bodyMedium
+                                          text = "Let’s find your doctor",
+                                          style = MaterialTheme.typography.bodyMedium, // Material 3 typography
+                                          modifier = Modifier.weight(1f)
                                    )
+                                   TextButton(
+                                          onClick = { },
+                                          colors = ButtonDefaults.textButtonColors(
+                                                 contentColor = MaterialTheme.colorScheme.onSurface // Consistent text color
+                                          ),
+                                          contentPadding = PaddingValues(0.dp),
+                                          elevation = null,
+                                   )
+                                   {
+                                          Text(
+                                                 text = "See all",
+                                                 style = MaterialTheme.typography.bodyMedium
+                                          )
+                                   }
                             }
-                     }
+
+
+                                   // TODO implement the horizontal filter list here
+
+
+
+
+
                             Row(
                                    modifier = Modifier
                                           .fillMaxWidth()
@@ -220,36 +257,41 @@ fun HomeScreen(){
                                           .height(IntrinsicSize.Min), // Ensure thin row height
                                    horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                   Text(text = "What are your Symptoms",
+                                   Text(
+                                          text = "What are your Symptoms",
                                           style = MaterialTheme.typography.bodyMedium, // Material 3 typography
-                                          modifier = Modifier.weight(1f))
+                                          modifier = Modifier.weight(1f)
+                                   )
                                    TextButton(
-                                          onClick = {  },
+                                          onClick = { },
                                           colors = ButtonDefaults.textButtonColors(
                                                  contentColor = MaterialTheme.colorScheme.onSurface // Consistent text color
-                                                               ),
+                                          ),
                                           contentPadding = PaddingValues(0.dp), // Remove default padding
                                           elevation = null, // Remove elevation for a truly flat button
                                           // Use Material 3 OutlinedButton for a more distinct button style:
                                           // style = OutlinedButtonDefaults.outlinedButtonStyle()
-                                          ) {
-                                          Text(text = "See all", style = MaterialTheme.typography.bodyMedium)
+                                   ) {
+                                          Text(
+                                                 text = "See all",
+                                                 style = MaterialTheme.typography.bodyMedium
+                                          )
                                    }
                             }
                             SquareGrid()
                             SquareGrid()
                             SquareGrid()
-                     SquareGrid()
-                     SquareGrid()
-                     SquareGrid()
-                     SquareGrid()
-                     SquareGrid()
-                     SquareGrid()
-                     SquareGrid()
-                     SquareGrid()
+                            SquareGrid()
+                            SquareGrid()
+                            SquareGrid()
+                            SquareGrid()
+                            SquareGrid()
+                            SquareGrid()
+                            SquareGrid()
+                            SquareGrid()
 
 
-
+                     }
               }
        }
 }
@@ -270,9 +312,7 @@ fun MyViewPreview() {
 fun SearchBar(
        value: String,
        onValueChange: (String) -> Unit,
-       modifier: Modifier = Modifier
-              .fillMaxWidth()
-              .padding(horizontal = 25.dp),
+       modifier: Modifier = Modifier,
 ) {
        OutlinedTextField(
               value = value,
@@ -287,7 +327,7 @@ fun SimpleCarousel(images : List<Int>, onClick:(Int) -> Unit ){
        LazyRow(modifier = Modifier
               .fillMaxWidth()
               .height(150.dp)
-              .offset(y = 0.dp)
+              .offset(y = (-40).dp)
        ) {
               itemsIndexed(images){index, imageId ->
                      CarouselItem(imageId, onClick = { onClick(index) })
@@ -355,4 +395,39 @@ fun SquareCard(
               }
        }
 }
+@Composable
+fun DoctorListScreen() {
+              LazyColumn(modifier = Modifier.fillMaxSize()) {
+                     items(dummyDoctors) { doctor ->
+                            DoctorListItem(doctor = doctor) {
+                                   // Handle doctor click here (e.g., display a toast)
+                            }
+                     }
+              }
+}
 
+
+@Composable
+fun DoctorListItem(doctor: DoctorList, onDoctorClick: () -> Unit) {
+       Card(
+              modifier = Modifier
+                     .fillMaxWidth()
+                     .padding(horizontal = 8.dp, vertical = 4.dp)
+                     .clickable { onDoctorClick() },
+              elevation = CardDefaults.cardElevation(
+                     defaultElevation = 4.dp)
+       ) {
+              Row(modifier = Modifier.fillMaxWidth()) {
+                     Image(
+                            painter = painterResource(id = doctor.imageId),
+                            contentDescription = null,
+                            modifier = Modifier.weight(1f) // Occupy full width on the left
+                     )
+                     Spacer(modifier = Modifier.width(8.dp)) // Add spacing between image and text
+                     Column(modifier = Modifier.weight(2f)) { // Take up remaining space on the right
+                            Text(text = doctor.name, style = MaterialTheme.typography.bodyMedium)
+                            Text(text = doctor.category, style = MaterialTheme.typography.bodySmall)
+                     }
+              }
+       }
+}

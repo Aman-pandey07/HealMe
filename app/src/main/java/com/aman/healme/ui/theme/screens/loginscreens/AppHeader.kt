@@ -23,7 +23,10 @@ fun AppHeader(
     appName: String,
     navigateUp: () -> Unit = {},
 ) {
-    CenterAlignedTopAppBar(
+    Column {
+
+
+        CenterAlignedTopAppBar(
             title = {
                 Text(
                     appName,
@@ -42,8 +45,11 @@ fun AppHeader(
                 }
             }
 
-    )
 
+        )
+        SearchBar(value = "Search a doctor or a health issue", onValueChange = {})
+
+    }
 }
 
 
