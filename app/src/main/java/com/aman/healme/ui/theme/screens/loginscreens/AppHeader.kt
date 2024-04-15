@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.aman.healme.ui.theme.screens.homescreens.SearchBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,7 +46,7 @@ fun AppHeader(
 
 
         )
-        SearchBar(value = "Search a doctor or a health issue", onValueChange = {})
+
 
     }
 }

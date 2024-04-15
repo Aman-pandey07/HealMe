@@ -16,11 +16,13 @@ import com.aman.healme.ui.theme.screens.SplashScreen01
 import com.aman.healme.ui.theme.screens.SplashScreen02
 import com.aman.healme.ui.theme.screens.SplashScreen03
 import com.aman.healme.ui.theme.screens.SplashScreen04
-import com.aman.healme.ui.theme.screens.homescreens.HomeScreen
+
+import com.aman.healme.ui.theme.screens.homescreens.NewUpdatedHomeScreen
 import com.aman.healme.ui.theme.screens.loginscreens.LoginRegistration01
 import com.aman.healme.ui.theme.screens.loginscreens.LoginRegistration02
 import com.aman.healme.ui.theme.screens.loginscreens.LoginScreen02OTP
-import com.aman.healme.ui.theme.screens.loginscreens.TestScreen
+import com.aman.healme.ui.theme.screens.loginscreens.Test
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
 //                    color = MaterialTheme.colorScheme.background
                 ) {
-                   HomeScreen()
+                   NewUpdatedHomeScreen()
 
                 }
             }
