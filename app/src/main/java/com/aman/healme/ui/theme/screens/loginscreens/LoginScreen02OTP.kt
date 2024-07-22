@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -21,14 +22,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,51 +50,55 @@ fun LoginScreen02OTP(navController: NavController){
             },
             content = {values->
                 // TODO screen content here
-                val phoneNumber = remember{ mutableStateOf("") }
+
 
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(values)
+                        .padding(10.dp)
                         .background(Color.White),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
-                    Spacer(modifier = Modifier.height(25.dp))
+                    Spacer(modifier = Modifier.height(50.dp))
                     Text(
                         text = "Enter your OTP for Login via OTP",
                         fontSize = 25.sp,
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.SemiBold,
                         textAlign = TextAlign.Center,
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
 
-
-
-                    Text(text = "A 4 digit OTP will be sent via SMS to verify your mobile number", fontSize = 10.sp)
                     Spacer(modifier = Modifier.height(50.dp))
                     val otp = remember { mutableStateOf("") }
                     val focusRequester = remember { FocusRequester() }
-                    Row (
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ){
+                    OtpInput(onOtpChange = { otp.value = it } )
+//                    Row (
+//                        modifier = Modifier.fillMaxWidth(),
+//                        horizontalArrangement = Arrangement.SpaceEvenly
+//                    ){
 
 
-                            OutlinedTextField(
 
-                                value = otp.value,
-                                onValueChange = {otp.value =it},
-                                textStyle = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier.fillMaxWidth(),
+//                            OutlinedTextField(
+//
+//                                value = otp.value,
+//                                onValueChange = {otp.value =it},
+//                                textStyle = MaterialTheme.typography.bodyMedium,
+//                                modifier = Modifier.fillMaxWidth(),
+//
+//                            )
 
-                            )
 
-
-                    }
+//                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(text = "A 4 digit OTP is sent via SMS to verify your mobile number",
+                        fontSize = 10.sp,
+                        )
+                    Spacer(modifier = Modifier.height(50.dp))
 
                     
-                    Button(onClick = { navController.navigate("loginregistration01") }) {
+                    Button(onClick = { navController.navigate("Registration1") }) {
                         Text(text = "Continue")
                     }
 
@@ -102,7 +110,7 @@ fun LoginScreen02OTP(navController: NavController){
                     ){
                         Text(text = "If you didn't received Code??")
                         TextButton(
-                            onClick = { },
+                            onClick = { navController.navigate("OTP")},
                                 colors = ButtonDefaults.textButtonColors(contentColor = Color.Black)
                         ) {
                             Text("Resend")
@@ -170,9 +178,34 @@ fun LoginScreen02OTP(navController: NavController){
 
 
                 }
+
+
             }
         )
     }
+@Composable
+fun OtpInput(
+    maxLength: Int = 6,
+    onOtpChange: (String) -> Unit
+) {
+    var otp by remember { mutableStateOf("") }
+
+    OutlinedTextField(
+        value = otp,
+        onValueChange = { newValue ->
+            val filtered = newValue.filter { it.isDigit() }
+            if (filtered.length <= maxLength) {
+                otp = filtered
+                onOtpChange(filtered)
+            }
+        },
+        label = { Text("Enter the OTP of $maxLength digits") },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        singleLine = true, // Ensures it's single line for number input
+        maxLines = 1,
+        modifier = Modifier.fillMaxWidth() // Optional: Fills the available width
+    )
+}
 
 
 

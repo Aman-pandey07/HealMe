@@ -76,7 +76,7 @@ fun LoginRegistration02(navController: NavController){
                     label = { Text(stringResource(R.string.gender)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
-                Button(onClick = { navController.navigate("homescreen") }) {
+                Button(onClick = { navController.navigate("HomeScreen") }) {
                     Text(text = "Get Started")
                 }
 

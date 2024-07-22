@@ -77,7 +77,7 @@ fun LoginRegistration01(navController:NavController){
                     label = { Text(stringResource(R.string.dob))},
                     modifier = Modifier.fillMaxWidth(),
                 )
-                Button(onClick = { navController.navigate("loginregistration02") }) {
+                Button(onClick = { navController.navigate("Registration2") }) {
                     Text(text = "Next")
                 }
 

@@ -45,11 +45,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.aman.healme.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AllSymptomsScreen (){
+fun AllSymptomsScreen (navController: NavController){
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -63,7 +64,7 @@ fun AllSymptomsScreen (){
                 }
             },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle left button click */ }) {
+                    IconButton(onClick = { navController.navigateUp() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "BACK")
                     }
                 }
@@ -132,11 +133,7 @@ fun AllSymptomsScreen (){
     }
 }
 
-@Preview
-@Composable
-fun Prev(){
-    AllSymptomsScreen()
-}
+
 
 @Composable
 fun ImageTextCard(img: Int, text: String) {

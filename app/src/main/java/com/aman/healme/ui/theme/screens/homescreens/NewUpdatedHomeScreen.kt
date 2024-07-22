@@ -56,8 +56,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -65,13 +63,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.core.widgets.Rectangle
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.aman.healme.R
 import com.aman.healme.ui.theme.screens.Screens
-import kotlin.math.round
 
 
 data class Doctor(
@@ -103,22 +100,22 @@ val symList = listOf(
 val imageList = listOf(R.drawable.image1, R.drawable.image1, R.drawable.image1)
 
 @Composable
-fun NewUpdatedHomeScreen(){
-MyAppBar()
+fun NewUpdatedHomeScreen(navController: NavHostController) {
+MyAppBar(navController = navController)
 
 
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyAppBar(){
+fun MyAppBar(navController: NavHostController){
     val navigationController = rememberNavController()
     val context = LocalContext.current.applicationContext
     val selected = remember {
         mutableStateOf(Icons.Default.Home)
     }
 
-    Scaffold(
+    androidx.compose.material.Scaffold(
 
         topBar = {
             TopAppBar(
@@ -133,7 +130,7 @@ fun MyAppBar(){
                     }
                 },
                 navigationIcon = { // Left button
-                    IconButton(onClick = { /* Handle left button click */ }) {
+                    IconButton(onClick = { navController.navigate("LeftDrawer")}) {
                         Icon(Icons.Default.Menu, contentDescription = "Menu")
                     }
                 },
@@ -200,14 +197,14 @@ fun MyAppBar(){
             }
         },
         content = {paddingValues ->
-            NavHost(navController = navigationController,
-                startDestination = Screens.Home.screen,
-                modifier = Modifier.padding(paddingValues)) {
-                composable(Screens.Home.screen){ Screens.Home }
-                composable(Screens.Appointment.screen){ Screens.Appointment }
-                composable(Screens.Upload.screen){ Screens.Upload }
-                composable(Screens.Account.screen){ Screens.Account }
-            }
+//            NavHost(navController = navigationController,
+//                startDestination = Screens.Home.screen,
+//                modifier = Modifier.padding(paddingValues)) {
+//                composable(Screens.Home.screen){ Screens.Home }
+//                composable(Screens.Appointment.screen){ Screens.Appointment }
+//                composable(Screens.Upload.screen){ Screens.Upload }
+//                composable(Screens.Account.screen){ Screens.Account }
+//            }
             Column(modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
@@ -217,7 +214,7 @@ fun MyAppBar(){
                     // Handle image click here based on the index
                 }
 
-                TextFun(text ="Let's find your Doctor" )
+                TextFun(text ="Let's find your Doctor", navController = navController)
                 var selectedItem by remember { mutableStateOf<String?>(null) }
 
                 val items = listOf("Heart Surgeon", "Psychologies", "Dentist", "Neurologist", "Ornithologist", "Clinic wale")
@@ -230,13 +227,13 @@ fun MyAppBar(){
                 LazyListWithImagesAndText()
               
 
-                TextFun(text = "What are your symptoms")
+                TextFun(text = "What are your symptoms", navController = navController)
 
                 SquareGrid()
                 SquareGrid()
                 SquareGrid()
 
-                seeAllBtn()
+                SeeAllBtn()
 
 
 
@@ -246,11 +243,7 @@ fun MyAppBar(){
     )
 }
 
-@Preview
-@Composable
-fun Preview01(){
-    MyAppBar()
-}
+
 
 @Composable
 fun SimpleCarousel(images : List<Int>, onClick:(Int) -> Unit ){
@@ -288,7 +281,7 @@ fun CarouselItem(imageId: Int, onClick: () -> Unit) {
 }
 
 @Composable
-fun TextFun(text:String){
+fun TextFun(text:String,navController: NavHostController){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -304,7 +297,7 @@ fun TextFun(text:String){
 
         )
         TextButton(
-            onClick = { },
+            onClick = { navController.navigate("AllSymScreen")},
             colors = ButtonDefaults.textButtonColors(
                 contentColor = MaterialTheme.colorScheme.onSurface // Consistent text color
             ),
@@ -477,7 +470,7 @@ fun SquareCard(
 }
 
 @Composable
-fun seeAllBtn(){
+fun SeeAllBtn(){
     Button(
         onClick = { /*TODO*/ },
         modifier = Modifier

@@ -12,24 +12,33 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.TextButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aman.healme.R
+
 
 
 @Composable
@@ -44,32 +53,43 @@ fun LoginScreen01(navController: NavController){
             // TODO screen content here
             val phoneNumber = remember{ mutableStateOf("") }
 
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(values)
+                    .padding(10.dp)
                     .background(Color.White),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                Spacer(modifier = Modifier.height(25.dp))
+
+                Spacer(modifier = Modifier.height(50.dp))
+
+
                 Text(
-                    text = "Enter your phone number for Login via OPT",
+                    text = "Enter your phone number for Login via OTP",
                     fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center,
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                OutlinedTextField(
-                    value = phoneNumber.value,
-                    onValueChange = {phoneNumber.value=it},
-                    label = { Text(stringResource(R.string.phone_number))},
-                    modifier = Modifier.fillMaxWidth(),
-                    
-                    )
+                Spacer(modifier = Modifier.height(50.dp))
+                //phone number input field
+                NumberInput(onNumberChange = { phoneNumber.value = it })
+//
+                //old number input field
+//                OutlinedTextField(
+//                    value = phoneNumber.value,
+//                    onValueChange = {phoneNumber.value=it},
+//                    label = { Text(stringResource(R.string.phone_number))},
+//                    modifier = Modifier.fillMaxWidth()
+//                )
+                Spacer(modifier = Modifier.height(20.dp))
+
                 Text(text = "A 4 digit OTP will be sent via SMS to verify your mobile number", fontSize = 10.sp,)
+                Spacer(modifier = Modifier.height(50.dp))
                 
-                Button(onClick = {navController.navigate("loginscreen02otp") }) {
+                Button(onClick = {navController.navigate("OTP") }) {
                     Text(text = "Continue")
                 }
                 Spacer(modifier = Modifier.weight(1f))
@@ -78,9 +98,6 @@ fun LoginScreen01(navController: NavController){
                         .fillMaxWidth()
                         .padding(start = 100.dp, end = 100.dp)
                         .height(50.dp)
-                        
-
-
                 ) { 
                     Row(
                         modifier = Modifier
@@ -124,13 +141,45 @@ fun LoginScreen01(navController: NavController){
 
                     }
                 }
-                Text(text = "By creating an account,you accept Heal-Me Terms of services ")
+                Text(text = "By creating an account,you accept Heal-Me")
+                TextButton(
+                    onClick = { /*TODO it should go to terms and condition screen*/ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
+                    content ={ Text("Terms and Conditions") }
+                    )
 
 
                 
 
             }
         }
+    )
+}
+
+
+@Composable
+fun NumberInput(
+    maxLength: Int = 10,
+    onNumberChange: (String) -> Unit
+    ) {
+    var text by remember { mutableStateOf("") }
+
+    OutlinedTextField(
+        value = text,
+        onValueChange = { newValue ->
+            val filtered = newValue.filter { it.isDigit() }
+            if (filtered.length <= maxLength) {
+                text = filtered
+                onNumberChange(filtered)
+            }
+        },
+        label = { Text("Enter your mobile number of $maxLength digits") },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        singleLine = true, // Ensures it's single line for number input
+        maxLines = 1,
+        modifier = Modifier.fillMaxWidth() // Optional: Fills the available width
     )
 }
 
