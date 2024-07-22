@@ -84,7 +84,7 @@ fun getList():List<OnboardingPage> {
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun IntroScreen(navController: NavController){
+fun IntroScreen(navController: NavController) {
     val pagerState = rememberPagerState()
     val list = getList()
     val scope = rememberCoroutineScope()
@@ -100,90 +100,94 @@ fun IntroScreen(navController: NavController){
                 .padding(16.dp)
                 .align(Alignment.Start),
             horizontalArrangement = Arrangement.End
-        ){
+        ) {
             TextButton(
-                onClick = { navController.navigate("PhoneNumber")},
+                onClick = { navController.navigate("PhoneNumber") },
                 modifier = Modifier
                     .size(100.dp, 50.dp),
 //                    .align(Alignment.End),
                 contentPadding = PaddingValues(0.dp), // Remove default padding
                 colors = ButtonDefaults.textButtonColors(contentColor = Color.Black),
-                content = {Text("SKIP")}
+                content = { Text("SKIP") }
             )
 
         }
         //Image and text
         Row(
             modifier = Modifier
-            .fillMaxHeight(.75f)
-            .fillMaxWidth()
-        ){
+                .fillMaxHeight(.75f)
+                .fillMaxWidth()
+        ) {
             HorizontalPager(count = list.size, state = pagerState) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Image(
-                        painter = painterResource(id = list[currentPage].res),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1f)
-                    )
-                    Text(
-                        text = list[currentPage].title,
-                        style = MaterialTheme.typography.titleMedium)
-                    Spacer(
-                        modifier = Modifier.height(10.dp)
-                    )
-                    Text(text = list[currentPage].description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.fillMaxWidth(0.8f).weight(1f)
-                    )
-                }
-            }
 
-
-        }
-        //Progress Indicator
-        Row (
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ){
-            HorizontalPagerIndicator(
-                pagerState = pagerState,
-//                modifier = Modifier.padding(10.dp)
-            )
-        }
-        //Next Button
-        Row (verticalAlignment = Alignment.CenterVertically){
-            Button(
-                onClick = {
-                if (pagerState.currentPage<3){
-                    scope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage+1)
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Image(
+                            painter = painterResource(id = list[currentPage].res),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(1f)
+                        )
+                        Text(
+                            text = list[currentPage].title,
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Spacer(
+                            modifier = Modifier.height(10.dp)
+                        )
+                        Text(
+                            text = list[currentPage].description,
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.fillMaxWidth(0.8f).weight(1f)
+                        )
                     }
-                }else{
-                    navController.navigate("PhoneNumber")
                 }
 
-            }, modifier = Modifier
-                .size(50.dp)
-                .padding(),
-                shape = CircleShape,
-                colors = ButtonDefaults.buttonColors(contentColor = Color.Red),
-                contentPadding = PaddingValues(0.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowForward,
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp), // Adjust the icon size as needed
-                    tint = Color.Black
-                )
 
+            }
+            //Progress Indicator
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                HorizontalPagerIndicator(
+                    pagerState = pagerState,
+//                modifier = Modifier.padding(10.dp)
+                )
+            }
+            //Next Button
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Button(
+                    onClick = {
+                        if (pagerState.currentPage < 3) {
+                            scope.launch {
+                                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                            }
+                        } else {
+                            navController.navigate("PhoneNumber")
+                        }
+
+                    }, modifier = Modifier
+                        .size(50.dp)
+                        .padding(),
+                    shape = CircleShape,
+                    colors = ButtonDefaults.buttonColors(contentColor = Color.Red),
+                    contentPadding = PaddingValues(0.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowForward,
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp), // Adjust the icon size as needed
+                        tint = Color.Black
+                    )
+
+                }
             }
         }
     }
-}
+
 
 

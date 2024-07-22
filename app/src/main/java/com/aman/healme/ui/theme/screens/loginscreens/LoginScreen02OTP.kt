@@ -49,7 +49,7 @@ fun LoginScreen02OTP(navController: NavController){
                 }
             },
             content = {values->
-                // TODO screen content here
+
 
 
                 Column(
@@ -102,24 +102,31 @@ fun LoginScreen02OTP(navController: NavController){
                         Text(text = "Continue")
                     }
 
-                    Row (
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(), // Ensures the Row fills the available width
+                        horizontalArrangement = Arrangement.Center // Centers content horizontally
+                    ) {
+                        Text(text = "If you didn't receive Code??")
+                    }
+
+
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(), // Ensures the Row fills the available width
+                        horizontalArrangement = Arrangement.Center // Centers content horizontally
                     ){
-                        Text(text = "If you didn't received Code??")
                         TextButton(
                             onClick = { navController.navigate("OTP")},
-                                colors = ButtonDefaults.textButtonColors(contentColor = Color.Black)
-                        ) {
-                            Text("Resend")
-                        }
+                            colors = ButtonDefaults.textButtonColors(contentColor = Color.Black),
+                            content = { Text("Resend")} ,
+                        )
                     }
-                    
 
 
-                        
+
+
+
                     Spacer(modifier = Modifier.weight(1f))
                     Box(
                         modifier = Modifier
@@ -172,7 +179,14 @@ fun LoginScreen02OTP(navController: NavController){
 
                         }
                     }
-                    Text(text = "By creating an account,you accept Heal-Me Terms of services ")
+                    Text(text = "By creating an account,you accept Heal-Me")
+                    TextButton(
+                        onClick = { /*TODO it should go to terms and condition screen*/ },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.CenterHorizontally),
+                        content = { Text("Terms and Conditions") }
+                    )
 
 
 

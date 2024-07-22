@@ -1,5 +1,6 @@
 package com.aman.healme.ui.theme.screens.loginscreens
 
+//import androidx.compose.material3.DatePickerDialog
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,10 +14,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-//import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,18 +43,21 @@ fun LoginRegistration01(navController:NavController){
             }
         },
         content = {value->
-            Column (modifier = Modifier
+            Column (
+                modifier = Modifier
                 .fillMaxSize()
                 .padding(value)
+                .padding(10.dp)
                 .background(Color.White),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally)
+                horizontalAlignment = Alignment.CenterHorizontally
+            )
             {
-                Spacer(modifier = Modifier.height(25.dp))
+                Spacer(modifier = Modifier.height(50.dp))
                 Text(
                     text = "Complete Health solutions",
                     fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
@@ -133,7 +137,14 @@ fun LoginRegistration01(navController:NavController){
 
                     }
                 }
-                Text(text = "By creating an account,you accept Heal-Me Terms of services ")
+                Text(text = "By creating an account,you accept Heal-Me")
+                TextButton(
+                    onClick = { /*TODO it should go to terms and condition screen*/ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
+                    content = { Text("Terms and Conditions") }
+                )
 
 
 
