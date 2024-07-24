@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -63,20 +64,20 @@ fun getList():List<OnboardingPage> {
         ),
         OnboardingPage(
             R.drawable.splashimg02,
-            "Find the best Doctor near you",
-            "With the help of our algorithms now locate the best doctors around your vicinity at total ease."
+            "Schedule appointments with expert doctors",
+            "Find experienced specialist doctors with expert ratings and reviews and book your appointments hassle-free."
 
         ),
         OnboardingPage(
             R.drawable.splashimg03,
-            "Find the best Doctor near you",
-            "With the help of our algorithms now locate the best doctors around your vicinity at total ease."
+            "Get best offer for your next appointment",
+            "Get addicted to memes and comic content for a light-hearted take on daily events.Toggle between feeds to alternate between serious and fun content."
 
         ),
         OnboardingPage(
             R.drawable.splashimg04,
-            "Find the best Doctor near you",
-            "With the help of our algorithms now locate the best doctors around your vicinity at total ease."
+            "Documents",
+            "Maintain all the prescription, Reports and invoice at one place."
 
         )
     )
@@ -113,33 +114,32 @@ fun IntroScreen(navController: NavController) {
 
         }
         //Image and text
-        Row(
-            modifier = Modifier
-                .fillMaxHeight(.75f)
-                .fillMaxWidth()
-        ) {
-            HorizontalPager(count = list.size, state = pagerState) {
+            HorizontalPager(count = list.size, state = pagerState) {page->
+                val onboardingPage = list[page]
 
                     Column(
                         verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.75f)
                     ) {
                         Image(
-                            painter = painterResource(id = list[currentPage].res),
+                            painter = painterResource(id = onboardingPage.res),
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(1f)
                         )
                         Text(
-                            text = list[currentPage].title,
+                            text = onboardingPage.title,
                             style = MaterialTheme.typography.titleMedium
                         )
                         Spacer(
                             modifier = Modifier.height(10.dp)
                         )
                         Text(
-                            text = list[currentPage].description,
+                            text = onboardingPage.description,
                             style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier.fillMaxWidth(0.8f).weight(1f)
                         )
@@ -147,7 +147,7 @@ fun IntroScreen(navController: NavController) {
                 }
 
 
-            }
+
             //Progress Indicator
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -155,14 +155,14 @@ fun IntroScreen(navController: NavController) {
             ) {
                 HorizontalPagerIndicator(
                     pagerState = pagerState,
-//                modifier = Modifier.padding(10.dp)
+                modifier = Modifier.padding(10.dp)
                 )
             }
             //Next Button
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Button(
                     onClick = {
-                        if (pagerState.currentPage < 3) {
+                        if (pagerState.currentPage < list.size - 1) {
                             scope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             }
@@ -170,7 +170,8 @@ fun IntroScreen(navController: NavController) {
                             navController.navigate("PhoneNumber")
                         }
 
-                    }, modifier = Modifier
+                    },
+                    modifier = Modifier
                         .size(50.dp)
                         .padding(),
                     shape = CircleShape,
@@ -178,7 +179,7 @@ fun IntroScreen(navController: NavController) {
                     contentPadding = PaddingValues(0.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowForward,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                         contentDescription = null,
                         modifier = Modifier.size(24.dp), // Adjust the icon size as needed
                         tint = Color.Black
