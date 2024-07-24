@@ -23,6 +23,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.aman.healme.ui.theme.data_class.Doctor
+import com.aman.healme.ui.theme.data_class.doctors
 
 @Composable
 fun LazyListWithImagesAndText() {

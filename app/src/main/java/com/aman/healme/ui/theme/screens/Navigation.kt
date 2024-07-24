@@ -4,7 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.aman.healme.ui.theme.screens.homescreens.NewUpdatedHomeScreen
+import com.aman.healme.ui.theme.screens.homescreens.NewMoreUpdatedHomeScreen
+
 import com.aman.healme.ui.theme.screens.loginscreens.LoginRegistration01
 import com.aman.healme.ui.theme.screens.loginscreens.LoginRegistration02
 import com.aman.healme.ui.theme.screens.loginscreens.LoginScreen01
@@ -36,7 +37,7 @@ val navController = rememberNavController()
             LoginRegistration02(navController)
         })
         composable(route = "HomeScreen", content = {
-            NewUpdatedHomeScreen(navController)
+            NewMoreUpdatedHomeScreen(navController)
         })
         composable(route = "AllSymScreen", content = {
             AllSymptomsScreen(navController)
