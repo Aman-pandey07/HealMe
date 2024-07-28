@@ -99,6 +99,12 @@ fun MainHomeScreen(navController: NavController){
                     NavigationBarItem(
                         selected = selectedIndex == index ,
                         onClick = {
+                            when (index) {
+                                0 -> navController.navigate("HomeScreen")
+                                1 -> navController.navigate("appointments")
+                                2 -> navController.navigate("upload")
+                                3 -> navController.navigate("account")
+                            }
                             selectedIndex = index
                         },
                         icon = { 

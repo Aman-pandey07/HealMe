@@ -19,13 +19,25 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -117,12 +129,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.Notifications,
+                contentDescription = "Notification",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "Notification",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -144,12 +156,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.Star,
+                contentDescription = "Review",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "Review",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -171,12 +183,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.DateRange,
+                contentDescription = "Appointment",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "Appointment",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -198,12 +210,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.Favorite,
+                contentDescription = "Favorite Doctors",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "Favorite Doctors",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -225,12 +237,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.ShoppingCart,
+                contentDescription = "My Rewards",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "My Rewards",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -269,12 +281,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.Share,
+                contentDescription = "Refer App",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "Refer App",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -296,12 +308,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.Warning,
+                contentDescription = "Terms & Conditions",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "Terms & Conditions",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -323,12 +335,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.Info,
+                contentDescription = "Feedback",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "Feedback",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -350,12 +362,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.AccountCircle,
+                contentDescription = "Help & Support",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "Help & Support",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -377,12 +389,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.Lock,
+                contentDescription = "Privacy Policy",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "Privacy Policy",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -404,12 +416,12 @@ Scaffold (
                 .padding(horizontal = 16.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings icon",
+                imageVector = Icons.Default.Refresh,
+                contentDescription = "Update App",
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Settings",
+                text = "Update App",
                 modifier = Modifier.padding(top = 8.dp, start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))

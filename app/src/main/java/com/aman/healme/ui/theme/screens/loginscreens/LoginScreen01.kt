@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -12,11 +13,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextButton
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -92,6 +95,15 @@ fun LoginScreen01(navController: NavController){
                 Button(onClick = {navController.navigate("OTP") }) {
                     Text(text = "Continue")
                 }
+                androidx.compose.material3.TextButton(
+                    onClick = { navController.navigate("HomeScreen") },
+                    modifier = Modifier
+                        .size(100.dp, 50.dp),
+//                    .align(Alignment.End),
+                    contentPadding = PaddingValues(0.dp), // Remove default padding
+                    colors = ButtonDefaults.textButtonColors(contentColor = Color.Black),
+                    content = { Text("SKIP") }
+                )
                 Spacer(modifier = Modifier.weight(1f))
                 Box(
                     modifier = Modifier
@@ -142,13 +154,13 @@ fun LoginScreen01(navController: NavController){
                     }
                 }
                 Text(text = "By creating an account,you accept Heal-Me")
-                TextButton(
-                    onClick = { /*TODO it should go to terms and condition screen*/ },
+                androidx.compose.material3.TextButton(
+                    onClick = { navController.navigate("T&C") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.CenterHorizontally),
-                    content ={ Text("Terms and Conditions") }
-                    )
+                    content = { Text("Terms and Conditions") }
+                )
 
 
                 

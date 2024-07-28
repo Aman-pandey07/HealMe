@@ -31,7 +31,47 @@ val doctors = listOf(
     Doctor("Dr. Jane Smith", R.drawable.docimage01,"Heart Surgeon"),
     Doctor("Dr. Michael Johnson", R.drawable.docimage01,"Heart Surgeon"),
     Doctor("Dr. Emily Brown", R.drawable.docimage01,"Heart Surgeon"),
-    Doctor("Dr. William Wilson", R.drawable.docimage01,"Heart Surgeon")
+    Doctor("Dr. William Wilson", R.drawable.docimage01,"Heart Surgeon"),
+
+    //Cardiologist
+    Doctor("Dr. William Wilson", R.drawable.docimage01, "Cardiologist"),
+    Doctor("Dr. Emily Carter", R.drawable.docimage01, "Cardiologist"),
+    Doctor("Dr. David Lee", R.drawable.docimage01, "Cardiologist"),
+    Doctor("Dr. Sarah Kim", R.drawable.docimage01, "Cardiologist"),
+    Doctor("Dr. Michael Brown", R.drawable.docimage01, "Cardiologist"),
+    Doctor("Dr. Olivia Johnson", R.drawable.docimage01, "Cardiologist"),
+
+    //Orthopedic Surgeon
+    Doctor("Dr. Ethan Miller", R.drawable.docimage01, "Orthopedic Surgeon"),
+    Doctor("Dr. Sophia Davis", R.drawable.docimage01, "Orthopedic Surgeon"),
+    Doctor("Dr. Benjamin Harris", R.drawable.docimage01, "Orthopedic Surgeon"),
+    Doctor("Dr. Ava Anderson", R.drawable.docimage01, "Orthopedic Surgeon"),
+
+    //Pediatrics
+    Doctor("Dr. Noah Thomas", R.drawable.docimage01, "Pediatrician"),
+    Doctor("Dr. Lily Martinez", R.drawable.docimage01, "Pediatrician"),
+    Doctor("Dr. Lucas Garcia", R.drawable.docimage01, "Pediatrician"),
+    Doctor("Dr. Amelia Hernandez", R.drawable.docimage01, "Pediatrician"),
+
+    //Dermatology
+    Doctor("Dr. Caleb Patel", R.drawable.docimage01, "Dermatologist"),
+    Doctor("Dr. Zoey Rogers", R.drawable.docimage01, "Dermatologist"),
+
+    //Neurologist
+    Doctor("Dr. Elijah Cook", R.drawable.docimage01, "Neurologist"),
+    Doctor("Dr. Scarlett Perez", R.drawable.docimage01, "Neurologist"),
+    Doctor("Dr. Owen Baker", R.drawable.docimage01, "Neurologist"),
+
+    //Ophthalmologist
+    Doctor("Dr. Chloe Hall", R.drawable.docimage01, "Ophthalmologist"),
+    Doctor("Dr. Wyatt Allen", R.drawable.docimage01, "Ophthalmologist"),
+
+
+
+
+
+
+
 )
 
 data class SymptomsImg(

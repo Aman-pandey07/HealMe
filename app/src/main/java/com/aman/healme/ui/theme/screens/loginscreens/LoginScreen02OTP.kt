@@ -181,7 +181,7 @@ fun LoginScreen02OTP(navController: NavController){
                     }
                     Text(text = "By creating an account,you accept Heal-Me")
                     TextButton(
-                        onClick = { /*TODO it should go to terms and condition screen*/ },
+                        onClick = { navController.navigate("T&C") },
                         modifier = Modifier
                             .fillMaxWidth()
                             .align(Alignment.CenterHorizontally),
