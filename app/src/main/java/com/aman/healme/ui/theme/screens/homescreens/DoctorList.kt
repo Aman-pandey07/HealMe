@@ -1,5 +1,6 @@
 package com.aman.healme.ui.theme.screens.homescreens
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,11 +13,22 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.Icon
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,11 +40,18 @@ import com.aman.healme.ui.theme.data_class.doctors
 
 @Composable
 fun LazyListWithImagesAndText() {
+    val categories = doctors.map { it.spec }.distinct()
+    var selectedCategory by remember { mutableStateOf(categories.first()) }
+    DoctorCategoryDropdown(
+        categories = categories,
+        selectedCategory = selectedCategory,
+        onCategorySelected = { selectedCategory = it }
+    )
     LazyColumn(modifier = Modifier
         .fillMaxWidth()
         .wrapContentHeight()
         .height(295.dp)) {
-        items(doctors) { doctor ->
+        items(doctors.filter { it.spec == selectedCategory }) { doctor ->
             DoctorItem(doctor = doctor)
         }
     }
@@ -78,4 +97,45 @@ fun DoctorItem(doctor: Doctor) {
 
         }
     }
+}
+
+@Composable
+fun DoctorCategoryDropdown(
+    categories: List<String>,
+    selectedCategory: String,
+    onCategorySelected: (String) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val dropdownItems = categories.map { it }
+
+    DropdownMenu(
+        expanded = expanded,
+        onDismissRequest = { expanded = false },
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        dropdownItems.forEach { category ->
+            DropdownMenuItem(
+                onClick = {
+                    expanded = false
+                    onCategorySelected(category)
+                }
+            ) {
+                androidx.compose.material.Text(text = category)
+            }
+        }
+    }
+    OutlinedTextField(
+        value = selectedCategory,
+        onValueChange = {}, // No need to update the text field
+        readOnly = true,
+        trailingIcon = {
+            IconButton(onClick = { expanded = !expanded }) {
+                Icon(
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = null
+                )
+            }
+        },
+        modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp)
+    )
 }

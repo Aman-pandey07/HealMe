@@ -36,6 +36,7 @@ fun HorizontalListWithSingleSelection(
                     text = item,
                     selected = item == selectedItem,
                     onSelected = { onItemSelected(item) }
+
                 )
             }
         }
@@ -47,6 +48,7 @@ fun ListItem(
     text: String,
     selected: Boolean,
     onSelected: () -> Unit
+
 ) {
     Box(
         modifier = Modifier

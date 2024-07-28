@@ -9,9 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
@@ -32,6 +36,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.aman.healme.ui.theme.data_class.doctors
 import com.aman.healme.ui.theme.data_class.imageList
 import com.aman.healme.ui.theme.data_class.navItemList
 import com.aman.healme.ui.theme.screens.mislanious.AccountScreen
@@ -129,11 +134,11 @@ fun MainHomeScreen(navController: NavController){
                 }
 
                 TextFun(text ="Let's find your Doctor", navController = navController)
-                var selectedItem by remember { mutableStateOf<String?>(null) }
 
-                val items = listOf("Heart Surgeon", "Psychologies", "Dentist", "Neurologist", "Ornithologist", "Clinic wale")
+
+                var selectedItem by remember { mutableStateOf<String?>(null) }
                 HorizontalListWithSingleSelection(
-                    items = items,
+                    items = doctors.map { it.spec }.distinct(),
                     selectedItem = selectedItem,
                     onItemSelected = { selectedItem = it }
                 )
@@ -152,6 +157,8 @@ fun MainHomeScreen(navController: NavController){
 
 
 
+
+
             }
         }
     )
@@ -166,3 +173,8 @@ fun ContentScreen( modifier: Modifier=Modifier, selectedIndex:Int){
         3 -> AccountScreen()
     }
 }
+
+
+
+
+
