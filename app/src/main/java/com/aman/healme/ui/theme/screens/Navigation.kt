@@ -11,6 +11,7 @@ import com.aman.healme.ui.theme.screens.loginscreens.LoginRegistration02
 import com.aman.healme.ui.theme.screens.loginscreens.LoginScreen01
 import com.aman.healme.ui.theme.screens.loginscreens.LoginScreen02OTP
 import com.aman.healme.ui.theme.screens.mislanious.AccountScreen
+import com.aman.healme.ui.theme.screens.mislanious.AllDoctorScreen
 import com.aman.healme.ui.theme.screens.mislanious.AllSymptomsScreen
 import com.aman.healme.ui.theme.screens.mislanious.AppointmentScreen
 import com.aman.healme.ui.theme.screens.mislanious.TAndCScreen
@@ -48,6 +49,9 @@ val navController = rememberNavController()
         })
         composable(route = "LeftDrawer", content = {
             TopNavigationDrawer(navController)
+        })
+        composable(route = "AllDoctors", content = {
+            AllDoctorScreen(navController)
         })
         composable("appointments") { AppointmentScreen() }
         composable("upload") { UploadScreen() }

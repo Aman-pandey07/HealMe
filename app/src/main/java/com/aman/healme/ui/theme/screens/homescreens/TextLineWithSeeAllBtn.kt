@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun TextFun(text:String, navController: NavController){
+fun TextFun(text:String,onClick: () -> Unit){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,7 +36,7 @@ fun TextFun(text:String, navController: NavController){
 
         )
         TextButton(
-            onClick = { navController.navigate("AllSymScreen")},
+            onClick = onClick,
             colors = ButtonDefaults.textButtonColors(
                 contentColor = MaterialTheme.colorScheme.onSurface // Consistent text color
             ),

@@ -133,21 +133,14 @@ fun MainHomeScreen(navController: NavController){
                     // Handle image click here based on the index
                 }
 
-                TextFun(text ="Let's find your Doctor", navController = navController)
+                TextFun(text ="Let's find your Doctor", onClick = { navController.navigate("AllDoctors") })
 
 
-                var selectedItem by remember { mutableStateOf<String?>(null) }
-                HorizontalListWithSingleSelection(
-                    items = doctors.map { it.spec }.distinct(),
-                    selectedItem = selectedItem,
-                    onItemSelected = { selectedItem = it }
-                )
 
                 LazyListWithImagesAndText()
 
 
-                TextFun(text = "What are your symptoms", navController = navController)
-
+                TextFun(text = "What are your symptoms", onClick = { navController.navigate("AllSymScreen") })
                 SquareGrid()
                 SquareGrid()
                 SquareGrid()
