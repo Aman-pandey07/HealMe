@@ -9,13 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
@@ -24,30 +20,33 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.aman.healme.ui.theme.data_class.doctors
 import com.aman.healme.ui.theme.data_class.imageList
 import com.aman.healme.ui.theme.data_class.navItemList
 import com.aman.healme.ui.theme.screens.mislanious.AccountScreen
 import com.aman.healme.ui.theme.screens.mislanious.AppointmentScreen
 import com.aman.healme.ui.theme.screens.mislanious.HomePage
 import com.aman.healme.ui.theme.screens.mislanious.UploadScreen
+import com.aman.healme.viewmodels.AuthState
+import com.aman.healme.viewmodels.AuthViewModel
 
 @Composable
-fun NewMoreUpdatedHomeScreen(navController: NavHostController) {
+fun NewMoreUpdatedHomeScreen(navController: NavHostController, authViewModel: AuthViewModel) {
 
-    MainHomeScreen(navController = navController)
+    MainHomeScreen(navController,authViewModel)
 
 
 }
@@ -55,9 +54,16 @@ fun NewMoreUpdatedHomeScreen(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainHomeScreen(navController: NavController){
-    val navigationController = rememberNavController()
+fun MainHomeScreen( navController: NavHostController, authViewModel: AuthViewModel){
+//    val navController = rememberNavController()
     val context = LocalContext.current.applicationContext
+    val authState = authViewModel.authState. observeAsState()
+    LaunchedEffect (authState.value) {
+        when (authState.value){
+            is AuthState.Unauthenticated -> navController.navigate ("login")
+            else-> Unit
+        }
+    }
     val selected = remember {
         mutableStateOf(Icons.Default.Home)
     }
@@ -146,6 +152,11 @@ fun MainHomeScreen(navController: NavController){
                 SquareGrid()
 
                 SeeAllBtn()
+                TextButton(onClick = {
+                    authViewModel.signout()
+                }) {
+                    Text(text = "Sign out")
+                }
 
 
 
@@ -155,16 +166,6 @@ fun MainHomeScreen(navController: NavController){
             }
         }
     )
-}
-
-@Composable
-fun ContentScreen( modifier: Modifier=Modifier, selectedIndex:Int){
-    when(selectedIndex){
-        0 -> HomePage()
-        1 -> AppointmentScreen()
-        2 -> UploadScreen()
-        3 -> AccountScreen()
-    }
 }
 
 

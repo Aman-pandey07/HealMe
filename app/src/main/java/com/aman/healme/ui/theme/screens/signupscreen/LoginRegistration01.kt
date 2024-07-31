@@ -1,4 +1,4 @@
-package com.aman.healme.ui.theme.screens.loginscreens
+package com.aman.healme.ui.theme.screens.signupscreen
 
 //import androidx.compose.material3.DatePickerDialog
 import androidx.compose.foundation.Image
@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aman.healme.R
+import com.aman.healme.ui.theme.screens.loginscreens.AppHeader
 
 @Composable
 fun LoginRegistration01(navController:NavController){

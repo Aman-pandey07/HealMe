@@ -1,4 +1,4 @@
-package com.aman.healme.ui.theme.screens.loginscreens
+package com.aman.healme.ui.theme.screens.signupscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aman.healme.R
+import com.aman.healme.ui.theme.screens.loginscreens.AppHeader
 
 @Composable
 fun LoginRegistration02(navController: NavController){
