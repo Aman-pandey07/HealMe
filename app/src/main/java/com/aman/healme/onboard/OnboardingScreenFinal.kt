@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.google.android.gms.common.api.Scope
 import kotlinx.coroutines.launch
 
@@ -31,20 +32,25 @@ import kotlinx.coroutines.launch
 @Composable
 fun OnboardingScreenFinal(onFinished:()->Unit) {
 
-    val pages = listOf(OnboardingModel.FirstPage,OnboardingModel.SecondPage,OnboardingModel.ThirdPage,OnboardingModel.FourthPage)
-    val pagerState = rememberPagerState(initialPage = 0){
+    val pages = listOf(
+        OnboardingModel.FirstPage,
+        OnboardingModel.SecondPage,
+        OnboardingModel.ThirdPage,
+        OnboardingModel.FourthPage
+    )
+    val pagerState = rememberPagerState(initialPage = 0) {
         pages.size
     }
     val scope = rememberCoroutineScope()
 
     val buttonState = remember {
-        derivedStateOf{
-            when(pagerState.currentPage){
-                0-> listOf("Skip","Next")
-                1-> listOf("Skip","Next")
-                2-> listOf("Skip","Next")
-                3-> listOf("Start","Start")
-                else-> listOf("" , "")
+        derivedStateOf {
+            when (pagerState.currentPage) {
+                0 -> listOf("Skip", "Next")
+                1 -> listOf("Skip", "Next")
+                2 -> listOf("Skip", "Next")
+                3 -> listOf("Start", "Start")
+                else -> listOf("", "")
             }
         }
     }
@@ -52,30 +58,32 @@ fun OnboardingScreenFinal(onFinished:()->Unit) {
 
     Scaffold(
         bottomBar = {
-        Row(
-            modifier = androidx.compose.ui.Modifier
-                .fillMaxWidth()
-                .padding(10.dp, 10.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ButtonUi(
-                text = buttonState.value[1],
-                backgroundColor = MaterialTheme.colorScheme.primary,
-                textColor = MaterialTheme.colorScheme.onPrimary
-            ){
-                scope.launch{
-                    if (pagerState.currentPage<pages.size-1){
-                        pagerState.animateScrollToPage(pagerState.currentPage+1)
-                    }else{
-                        onFinished()
+            Row(
+                modifier = androidx.compose.ui.Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp, 10.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ButtonUi(
+                    text = buttonState.value[1],
+                    backgroundColor = MaterialTheme.colorScheme.primary,
+                    textColor = MaterialTheme.colorScheme.onPrimary
+                ) {
+                    scope.launch {
+                        if (pagerState.currentPage < pages.size - 1) {
+                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                        } else {
+                            onFinished()
+//                            navController.navigate("login")
+
+                        }
                     }
                 }
             }
-        }
-    },
-        content = {
-            Column {
+        },
+        content = {i->
+            Column(modifier = Modifier.padding(i)) {
                 Row(
                     modifier = androidx.compose.ui.Modifier
                         .fillMaxWidth()
@@ -89,39 +97,32 @@ fun OnboardingScreenFinal(onFinished:()->Unit) {
                         textColor = Color.Black,
                         textStyle = MaterialTheme.typography.bodySmall,
                         fontSize = 13
-                    ){}
+                    ) {}
 
 
                 }
-                HorizontalPager(state = pagerState) {index ->
+                HorizontalPager(state = pagerState) { index ->
                     OnBoardingGraphUI(onboardingModel = pages[index])
                 }
                 Spacer(modifier = Modifier.size(20.dp))
-                    Row(
-                        modifier = androidx.compose.ui.Modifier
-                            .fillMaxWidth()
-                            .padding(10.dp, 5.dp),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IndicatorUI(pageSize = pages.size, currentPage = pagerState.currentPage)
-                    }
-
-
-
+                Row(
+                    modifier = androidx.compose.ui.Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp, 5.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IndicatorUI(pageSize = pages.size, currentPage = pagerState.currentPage)
+                }
             }
         }
     )
-
-
-
-
 }
 
-@Preview(showBackground = true)
-@Composable
-fun OnBoardingScreenPreview(){
-    OnboardingScreenFinal{
-
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun OnBoardingScreenPreview(){
+//    OnboardingScreenFinal(){
+//
+//    }
+//}

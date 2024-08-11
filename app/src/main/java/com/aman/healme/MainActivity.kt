@@ -1,8 +1,8 @@
 package com.aman.healme
 
 
+
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,13 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import com.aman.healme.onboard.OnboardingScreenFinal
+import com.aman.healme.onboard.OnboardingUtils
 import com.aman.healme.ui.theme.HealMeTheme
 import com.aman.healme.ui.theme.screens.App
-import com.aman.healme.ui.theme.screens.homescreens.MainHomeScreen
 import com.aman.healme.viewmodels.AuthViewModel
 
 
@@ -37,13 +34,19 @@ class MainActivity : ComponentActivity() {
         val authViewModel :AuthViewModel by viewModels()
         setContent {
             HealMeTheme {
-                ShowOnboardingScreen()
-                // A surface container using the 'background' color from the theme
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    App(modifier = Modifier.padding(innerPadding),
-//                        authViewModel = authViewModel )
-//
-//                }
+            Surface(color = MaterialTheme.colorScheme.background) {
+                if (OnboardingUtils.isOnboardingComplete(this)){
+                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                        App(modifier = Modifier.padding(innerPadding),
+                            authViewModel = authViewModel,
+                            )
+
+                    }
+                } else{
+                    ShowOnboardingScreen()
+                }
+            }
+
             }
         }
     }
@@ -53,8 +56,9 @@ class MainActivity : ComponentActivity() {
 private fun ShowOnboardingScreen(){
     val context = LocalContext.current
     Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
-        OnboardingScreenFinal {
-            Toast.makeText(context,"Onboarding complete", Toast.LENGTH_LONG).show()
+        OnboardingScreenFinal() {
+//            Toast.makeText(context,"Onboarding complete", Toast.LENGTH_LONG).show()
+
         }
     }
 }
